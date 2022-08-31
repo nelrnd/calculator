@@ -1,7 +1,15 @@
 const add = (nb1,nb2) => Number(nb1) + Number(nb2);
 const substract = (nb1,nb2) => nb1 - nb2;
 const multiply = (nb1,nb2) => nb1 * nb2;
-const divide = (nb1,nb2) => nb1 / nb2;
+const divide = (nb1,nb2) => {
+  if (nb2 == 0) {
+    clear();
+    return 0;
+    //showPop('What are you doing?');
+  } else {
+    return nb1 / nb2;
+  }
+};
 
 const operation = {};
 
@@ -34,6 +42,13 @@ oprtButtons.forEach(btn => btn.addEventListener('click', handleOpInput));
 
 function handleNbInput(event) {
   let input = event.target.textContent;
+
+  // Don't allow more than one dot
+  if (input === '.') {
+    if (operation[checkCurrentNb()].toString().includes('.')) {
+      return;
+    }
+  }
   if (!operation.operator) {
     if (operation.nb1) {
       operation.nb1 += input;
@@ -67,6 +82,10 @@ function handleOpInput(event) {
     delete operation.nb2;
   }
   displayInput(input.textContent);
+}
+
+function checkCurrentNb() {
+  return (operation.operator) ? 'nb2' : 'nb1'
 }
 
 const operateButton = document.querySelector('button#operate');
@@ -107,4 +126,3 @@ function clear() {
   }
   display.textContent = '0';
 }
-
