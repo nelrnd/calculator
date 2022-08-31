@@ -19,6 +19,7 @@ function operate() {
       break;
     case 'divide':
       result = divide(operation.nb1, operation.nb2);
+      result = Math.round((result + Number.EPSILON) * 100) / 100;
       break;
     default:
       console.log('can\'t handle operator');
@@ -97,3 +98,13 @@ function displayInput(input) {
 function displayResult(result) {
   display.textContent = result;
 }
+
+const clearButton = document.querySelector('button#clear');
+clearButton.addEventListener('click', clear);
+function clear() {
+  for (let key in operation) {
+    delete operation[key];
+  }
+  display.textContent = '0';
+}
+
