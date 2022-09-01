@@ -38,10 +38,15 @@ function operate() {
 const numberButtons = document.querySelectorAll('#numbers>button');
 numberButtons.forEach(btn => btn.addEventListener('click', handleNbInput));
 const oprtButtons = document.querySelectorAll('#operators>button');
-oprtButtons.forEach(btn => btn.addEventListener('click', handleOpInput));
+oprtButtons.forEach(btn => btn.addEventListener('click', event => handleOpInput(event.target.textContent)));
 
 function handleNbInput(event) {
-  let input = event.target.textContent;
+  let input;
+  if ((event >= 0 && event < 10) || event === '.') {
+    input = event;
+  } else {
+    input = event.target.textContent;
+  }
 
   // Don't allow more than one dot
   if (input === '.') {
@@ -64,8 +69,7 @@ function handleNbInput(event) {
   }
   displayInput(input);
 }
-function handleOpInput(event) {
-  let input = event.target;
+function handleOpInput(op) {
   if (!operation.nb1) {
     return;
   }
@@ -73,7 +77,7 @@ function handleOpInput(event) {
     if (operation.operator) {
       display.textContent = display.textContent.slice(0, -1);
     }
-    operation.operator = input.id;
+    operation.operator = convertOp(op);
   } else {
     let result = operate();
     displayResult(result);
@@ -81,7 +85,28 @@ function handleOpInput(event) {
     operation.operator = input.id;
     delete operation.nb2;
   }
-  displayInput(input.textContent);
+  displayInput(' ' + op + ' ');
+}
+
+function convertOp(op) {
+  let opString;
+  switch (op) {
+    case '+':
+      opString = 'add';
+      break;
+    case '-':
+      opString = 'substract';
+      break;
+    case '*':
+    case 'x':
+      opString = 'multiply';
+      break;
+    case '/':
+    case '÷':
+      opString = 'divide';
+      break;
+  }
+  return opString;
 }
 
 function checkCurrentNb() {
@@ -118,6 +143,8 @@ function displayResult(result) {
   display.textContent = result;
 }
 
+
+
 const clearButton = document.querySelector('button#clear');
 clearButton.addEventListener('click', clear);
 function clear() {
@@ -133,14 +160,67 @@ function goBack() {
   if (operation.nb2) {
     operation.nb2 = operation.nb2.toString().slice(0, -1);
     display.textContent = display.textContent.slice(0, -1);
+    if (operation.nb2 === '-') {
+      delete operation.nb2;
+      display.textContent = display.textContent.slice(0, -1);
+    }
   } else if (operation.operator) {
     delete operation.operator;
-    display.textContent = display.textContent.slice(0, -1);
-  } else if (operation.nb1.length === 1) {
+    display.textContent = display.textContent.slice(0, -3);
+  } else if (operation.nb1 && operation.nb1.length === 1) {
     operation.nb1 = 0;
     display.textContent = 0;
   } else if (operation.nb1) {
     operation.nb1 = operation.nb1.toString().slice(0, -1);
     display.textContent = display.textContent.slice(0, -1);
+    if (operation.nb1 === '-') {
+      delete operation.nb1;
+      display.textContent = 0;
+    }
+  }
+}
+
+const posNegButton = document.querySelector('button#pos-neg');
+posNegButton.addEventListener('click', switchPositiveNegative);
+function switchPositiveNegative() {
+  if (operation.nb2) {
+    operation.nb2 = -(operation.nb2);
+    let disp = display.textContent.split(' ');
+    disp[2] = operation.nb2;
+    display.textContent = disp.join(' ');
+  } else if (operation.nb1 && operation.operator) {
+    operation.nb1 = -(operation.nb1);
+    let disp = display.textContent.split(' ');
+    disp[0] = operation.nb1;
+    display.textContent = disp.join(' ');
+  } else if (operation.nb1) {
+    operation.nb1 = -(operation.nb1);
+    display.textContent = operation.nb1;
+  }
+}
+
+window.addEventListener('keydown', handleKeyboardInput);
+function handleKeyboardInput(event) {
+  let key = event.key;
+  if ((key >= 0 && key < 10) || key === '.') {
+    handleNbInput(key);
+  } else if (key === 'Backspace') {
+    goBack()
+  } else if (key === '+' || key === '-' || key === 'x' || key === '*' || key === '/') {
+    handleOpInput(convertOpKey(key));
+  } else if (key === 'Enter') {
+    if (!checkOperation()) return; //operation not valid
+    let result = operate();
+    displayResult(result);
+    operation.nb1 = result;
+    delete operation.operator;
+    delete operation.nb2;
+  }
+}
+function convertOpKey(key) {
+  if (key === '*') {
+    return 'x';
+  } else {
+    return key;
   }
 }
