@@ -126,3 +126,21 @@ function clear() {
   }
   display.textContent = '0';
 }
+
+const backspaceButton = document.querySelector('button#back');
+backspaceButton.addEventListener('click', goBack);
+function goBack() {
+  if (operation.nb2) {
+    operation.nb2 = operation.nb2.toString().slice(0, -1);
+    display.textContent = display.textContent.slice(0, -1);
+  } else if (operation.operator) {
+    delete operation.operator;
+    display.textContent = display.textContent.slice(0, -1);
+  } else if (operation.nb1.length === 1) {
+    operation.nb1 = 0;
+    display.textContent = 0;
+  } else if (operation.nb1) {
+    operation.nb1 = operation.nb1.toString().slice(0, -1);
+    display.textContent = display.textContent.slice(0, -1);
+  }
+}
