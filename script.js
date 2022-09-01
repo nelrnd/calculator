@@ -194,3 +194,7 @@ function convertKbInput(key) {
       return key;
   }
 }
+
+function switchTheme() {
+  document.body.classList.toggle('dark');
+}

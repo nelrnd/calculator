@@ -60,14 +60,16 @@ button {
   position: relative;
   bottom: 0;
   opacity: .9;
-  transition: all 0.2s;
+  transition: all 0.2s ease-in-out;
 }
 button:hover {
   bottom: 4px;
+  font-size: 36px;
   opacity: 1;
 }
 button:active {
   bottom: 0;
+  font-size: 32px;
   opacity: 1;
 }
 
@@ -98,4 +100,99 @@ button:active {
   display: flex;
   flex-direction: column;
   gap: 8px;
+}
+
+.dark {
+  background-color: #151515;
+}
+.dark .calculator {
+  background-color: #000000;
+  box-shadow: 0px 10px 10px #111111;
+}
+.dark #display {
+  color: white;
+  background-color: #151515;
+}
+.dark #numbers button {
+  color: #B9B9B9;
+  background-color: #151515;
+}
+.dark #operators button {
+  color: black;
+  background-color: #535353;
+}
+.dark button#operate {
+  color: black;
+  background-color: #B8B8B8;
+}
+.dark button#clear,
+.dark button#back,
+.dark button#pos-neg {
+  color: #B9B9B9;
+  background-color: #333333;
+}
+.dark button#back img {
+  filter: invert(100%);
+}
+.dark #theme-switch {
+  color: #B8B8B8;
+}
+
+#theme-switch {
+  position: absolute;
+  top: 48px;
+  width: 100%;
+  text-transform: uppercase;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 64px;
+  height: 32px;
+}
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 32px;
+  background-color: #FFFFFF;
+  outline: solid 2px #E8E8E8;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 22px;
+  width: 22px;
+  left: 5px;
+  bottom: 5px;
+  border-radius: 50%;
+  background-color: #E8E8E8;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+input:checked + .slider {
+  background-color: #000000;
+  outline: solid 2px #535353;
+}
+input:checked + .slider:before {
+  background-color: #535353;
+  -webkit-transform: translateX(32px);
+  -ms-transform: translateX(32px);
+  transform: translateX(32px);
 }
