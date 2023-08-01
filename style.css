@@ -1,3 +1,105 @@
-h1 {
-  color: blue
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#calculator {
+  background-color: #aaa;
+  padding: 32px 16px;
+  border: solid 2px rgba(0, 0, 0, 0.1);
+  box-shadow: inset 4px 4px 4px rgba(255, 255, 255, 0.2), inset -4px -4px 4px rgba(0, 0, 0, 0.2), 0 4px 4px rgba(0, 0, 0, 0.5);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.screen {
+  background: linear-gradient(156deg, rgba(0, 0, 0, 0.10) 0%, rgba(255, 255, 255, 0.10) 52.51%, rgba(0, 0, 0, 0.10) 100%), #2B2B2B;
+  height: 120px;
+  padding: 12px;
+  border-radius: 8px;
+  box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.25) inset, -4px -4px 4px 0px rgba(255, 255, 255, 0.25) inset;
+  display: flex;
+  align-items: center;
+}
+
+#output {
+  flex: 1;
+  font-size: 40px;
+  font-family: monospace;
+  text-align: right;
+  color: white;
+}
+
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+}
+
+button {
+  font-size: 32px;
+  width: 64px;
+  height: 64px;
+  border: none;
+  border-radius: 8px;
+  box-shadow: inset 2px 2px 4px rgba(255, 255, 255, 0.5), inset -2px -2px 4px rgba(0, 0, 0, 0.5), 0 0 4px 1px rgba(0, 0, 0, 0.25);
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.1s ease-in-out;
+}
+
+button.light {
+  color: #4e4e4e;
+  background-color: #d9d9d9;
+}
+
+button.dark {
+  color: #d9d9d9;
+  background-color: #4e4e4e;
+}
+
+button.accent {
+  color: white;
+  background-color: #E45637;
+}
+
+button.small {
+  font-size: 24px;
+}
+
+button.large {
+  grid-column-end: span 2;
+  width: 100%
+}
+
+button::after {
+  content: '';
+  display: block;
+  background-color: black;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  opacity: 0;
+}
+
+button:hover::after {
+  opacity: 0.075;
+}
+
+button:active {
+  transform: translateY(2px) scale(0.99);
+  box-shadow: inset 2px 2px 4px rgba(255, 255, 255, 0.5), inset -2px -2px 4px rgba(0, 0, 0, 0.5), 0 0 4px 1px rgba(0, 0, 0, 0.1);
 }
