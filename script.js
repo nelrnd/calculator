@@ -47,14 +47,21 @@ function getCurrentNumber() {
 
 // DOM
 
-const digits = document.querySelectorAll('[data-type="digit"]');
-const operators = document.querySelectorAll('[data-type="operator"]');
-const equal = document.getElementById('equal');
+const digitBtns = document.querySelectorAll('[data-type="digit"]');
+const operatorBtns = document.querySelectorAll('[data-type="operator"]');
+const dotBtn = document.getElementById('dot');
+const equalBtn = document.getElementById('equal');
+const clearBtn = document.getElementById('clear');
 const output = document.getElementById('output');
 
 function updateNumber(digit) {
   let number = getCurrentNumber();
-  number = Number((number || 0) + digit);
+  number = number === '0' ? digit : (number || '') + digit;
+
+  if (number.length > 8) {
+    return;
+  }
+
   if (operator) {
     number2 = number;
   } else {
@@ -62,8 +69,8 @@ function updateNumber(digit) {
   }
 }
 
-function display() {
-  output.innerText = getCurrentNumber();
+function display(value) {
+  output.innerText = value || getCurrentNumber();
 }
 
 function handleDigit(event) {
@@ -79,7 +86,22 @@ function handleOperator(event) {
   operator = event.target.innerText;
 }
 
+function handleDot() {
+  const currentNumber = getCurrentNumber();
+  if (currentNumber.includes('.') || currentNumber.length > 8) {
+    return;
+  }
+  if (operator) {
+    number2 += '.';
+  } else {
+    number1 += '.';
+  }
+  display();
+}
+
 function handleEqual() {
+  number1 = Number(number1);
+  number2 = Number(number2);
   const result = operate(number1, number2, operator);
   if (!result) {
     return;
@@ -89,6 +111,15 @@ function handleEqual() {
   display();
 }
 
-digits.forEach((elem) => elem.addEventListener('click', handleDigit));
-operators.forEach((elem) => elem.addEventListener('click', handleOperator));
-equal.addEventListener('click', handleEqual);
+function handleClear() {
+  clear();
+  display('0');
+}
+
+digitBtns.forEach((elem) => elem.addEventListener('click', handleDigit));
+operatorBtns.forEach((elem) => elem.addEventListener('click', handleOperator));
+dotBtn.addEventListener('click', handleDot);
+equalBtn.addEventListener('click', handleEqual);
+clearBtn.addEventListener('click', handleClear);
+
+display('0')
