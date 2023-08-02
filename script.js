@@ -31,7 +31,7 @@ function operate(number1, number2, operator) {
     case '÷':
       return divide(number1, number2);
     default:
-      return 'incorrect operator';
+      break;
   }
 }
 
@@ -47,54 +47,48 @@ function getCurrentNumber() {
 
 // DOM
 
+const digits = document.querySelectorAll('[data-type="digit"]');
+const operators = document.querySelectorAll('[data-type="operator"]');
+const equal = document.getElementById('equal');
 const output = document.getElementById('output');
-const numberButtons = document.querySelectorAll('button.digit');
-const operatorsButtons = document.querySelectorAll('button.operator');
-const operateButton = document.querySelector('button.operate');
 
 function updateNumber(digit) {
+  let number = getCurrentNumber();
+  number = Number((number || 0) + digit);
   if (operator) {
-    if (number2) {
-      number2 = Number(number2 + digit);
-    } else {
-      number2 = Number(digit);
-    }
+    number2 = number;
   } else {
-    if (number1) {
-      number1 = Number(number1 + digit);
-    } else {
-      number1 = Number(digit);
-    }
+    number1 = number;
   }
 }
 
-function displayCurrentNumber() {
-  const number = getCurrentNumber();
-  output.innerText = number;
+function display() {
+  output.innerText = getCurrentNumber();
 }
 
-function handleNumberInput(event) {
+function handleDigit(event) {
   const digit = event.target.innerText;
   updateNumber(digit);
-  displayCurrentNumber();
+  display();
 }
 
-function handleOperatorInput(event) {
+function handleOperator(event) {
+  if (operator) {
+    handleEqual();
+  }
   operator = event.target.innerText;
 }
 
-function handleOperate() {
-  if (!number2) {
+function handleEqual() {
+  const result = operate(number1, number2, operator);
+  if (!result) {
     return;
   }
-  const result = operate(number1, number2, operator);
-  console.log(number1, ' ', number2)
-  console.log(typeof result)
   clear();
   number1 = result;
-  displayCurrentNumber();
+  display();
 }
 
-numberButtons.forEach((btn) => btn.addEventListener('click', handleNumberInput));
-operatorsButtons.forEach((btn) => btn.addEventListener('click', handleOperatorInput));
-operateButton.addEventListener('click', handleOperate);
+digits.forEach((elem) => elem.addEventListener('click', handleDigit));
+operators.forEach((elem) => elem.addEventListener('click', handleOperator));
+equal.addEventListener('click', handleEqual);
