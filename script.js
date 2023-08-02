@@ -58,7 +58,7 @@ function updateNumber(digit) {
   let number = getCurrentNumber();
   number = number === '0' ? digit : (number || '') + digit;
 
-  if (number.length > 8) {
+  if (number.length > 10) {
     return;
   }
 
@@ -87,8 +87,8 @@ function handleOperator(event) {
 }
 
 function handleDot() {
-  const currentNumber = getCurrentNumber();
-  if (currentNumber.includes('.') || currentNumber.length > 8) {
+  const currentNumber = getCurrentNumber().toString();
+  if (currentNumber.includes('.') || currentNumber.length > 10) {
     return;
   }
   if (operator) {

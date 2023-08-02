@@ -24,6 +24,7 @@ body {
 
 .screen {
   background: linear-gradient(156deg, rgba(0, 0, 0, 0.10) 0%, rgba(255, 255, 255, 0.10) 52.51%, rgba(0, 0, 0, 0.10) 100%), #2B2B2B;
+  max-width: 274px;
   height: 120px;
   padding: 12px;
   border-radius: 8px;
@@ -35,9 +36,11 @@ body {
 #output {
   flex: 1;
   font-size: 40px;
-  font-family: monospace;
+  font-family: 'Share Tech Mono', monospace;
   text-align: right;
+  line-height: 90%;
   color: white;
+  word-break: break-all;
 }
 
 .buttons {
@@ -47,6 +50,7 @@ body {
 }
 
 button {
+  font-family: 'Arimo', sans-serif;
   font-size: 32px;
   width: 64px;
   height: 64px;
