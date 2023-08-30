@@ -73,7 +73,7 @@ const handleDot = () => {
 }
 
 const handleOperator = (operator) => {
-  if (operation.operator && operation.number1 !== Number(screen.innerText)) {
+  if (operation.operator && Number(screen.innerText)) {
     handleEqual();
   } else {
     operation.number1 = Number(screen.innerText);
