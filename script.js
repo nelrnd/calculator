@@ -77,9 +77,9 @@ const handleOperator = (operator) => {
     handleEqual();
   } else {
     operation.number1 = Number(screen.innerText);
-    operation.operatorJustSet = true;
   }
   operation.operator = operator;
+  operation.operatorJustSet = true;
 }
 
 const handleEqual = () => {
@@ -87,7 +87,9 @@ const handleEqual = () => {
     operation.number2 = Number(screen.innerText);
     operation.convertNumbers();
 
-    const result = operate(operation.number1, operation.number2, operation.operator);
+    let result = operate(operation.number1, operation.number2, operation.operator);
+    // round result
+    result = Math.round(result * 100) / 100;
     operation.clear();
     operation.number1 = result;
     populateScreen(result);
@@ -158,6 +160,8 @@ const animateButton = (button) => {
 buttons.forEach((button) => button.addEventListener('click', () => handleInput(button)));
 
 window.addEventListener('keypress', (event) => {
+  event.preventDefault();
+
   const button = findButton(event.key);
   if (button) {
     handleInput(button);

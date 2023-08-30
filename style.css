@@ -31,7 +31,7 @@ body {
 .screen {
   background-color: var(--dark);
   max-width: 274px;
-  height: 120px;
+  min-height: 120px;
   padding: 12px;
   border-radius: 8px;
   display: flex;
@@ -98,4 +98,8 @@ button:hover {
 button:active,
 button.active {
   opacity: 0.5;
+}
+
+button:focus {
+  outline: none;
 }
