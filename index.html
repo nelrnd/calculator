@@ -8,35 +8,36 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Arimo&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔢</text></svg>">
   </head>
   <body>
     <div id="calculator">
       <div class="screen">
-        <div id="output"></div>
+        <div id="text"></div>
       </div>
 
       <div class="buttons">
         <button class="dark small" id="clear">AC</button>
         <button class="dark small">+/-</button>
-        <button class="dark">%</button>
+        <button class="dark small" data-type="operator">%</button>
         <button class="dark" data-type="operator">+</button>
         
-        <button class="light" data-type="digit">7</button>
-        <button class="light" data-type="digit">8</button>
-        <button class="light" data-type="digit">9</button>
+        <button class="light" data-type="number">7</button>
+        <button class="light" data-type="number">8</button>
+        <button class="light" data-type="number">9</button>
         <button class="dark" data-type="operator">-</button>
 
-        <button class="light" data-type="digit">4</button>
-        <button class="light" data-type="digit">5</button>
-        <button class="light" data-type="digit">6</button>
+        <button class="light" data-type="number">4</button>
+        <button class="light" data-type="number">5</button>
+        <button class="light" data-type="number">6</button>
         <button class="dark" data-type="operator">×</button>
 
-        <button class="light" data-type="digit">1</button>
-        <button class="light" data-type="digit">2</button>
-        <button class="light" data-type="digit">3</button>
+        <button class="light" data-type="number">1</button>
+        <button class="light" data-type="number">2</button>
+        <button class="light" data-type="number">3</button>
         <button class="dark" data-type="operator">÷</button>
         
-        <button class="light large" data-type="digit">0</button>
+        <button class="light large" data-type="number">0</button>
         <button class="light" id="dot">.</button>
         <button class="accent" id="equal">=</button>
       </div>
